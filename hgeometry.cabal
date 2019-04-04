@@ -39,21 +39,6 @@ data-files:          resources/basic.isy
                      test/Data/PlaneGraph/small.yaml
                      test/Data/PlaneGraph/testsegs.png
 
-                     examples/BAPC2014/sample.in
-                     examples/BAPC2014/sample.out
-                     examples/BAPC2014/testdata.in
-                     examples/BAPC2014/testdata.out
-                     examples/BAPC2012/G.in
-                     examples/BAPC2012/G.out
-                     examples/BAPC2012/sampleG.in
-                     examples/BAPC2012/sampleG.out
-
-                     examples/resources/world.ipe
-
-                     -- in the future (cabal >=2.4) we can use
-                     -- examples/**/*.in
-                     -- examples/**/*.out
-
 extra-source-files:  README.md
                      changelog.md
 
@@ -65,12 +50,6 @@ cabal-version:       2.0
 source-repository head
   type:     git
   location: https://github.com/noinia/hgeometry
-
-
-flag examples
-  description: Build demonstration programs
-  default:     False
-  manual:      True
 
 flag with-quickcheck
   description: Include QuickCheck instances
@@ -126,73 +105,9 @@ library
 
                     Data.Geometry.KDTree
 
-                    Data.Geometry.PlanarSubdivision
-                    Data.Geometry.PlanarSubdivision.Basic
-                    Data.Geometry.PlanarSubdivision.Draw
-
                     Data.Geometry.Arrangement
                     Data.Geometry.Arrangement.Internal
                     Data.Geometry.Arrangement.Draw
-
-                    -- * Algorithms
-
-                    -- * Geometric Algorithms
-                    Algorithms.Geometry.ConvexHull.GrahamScan
-                    Algorithms.Geometry.ConvexHull.DivideAndConquer
-
-                    Algorithms.Geometry.LowerEnvelope.DualCH
-
-                    Algorithms.Geometry.SmallestEnclosingBall.Types
-                    Algorithms.Geometry.SmallestEnclosingBall.RandomizedIncrementalConstruction
-                    Algorithms.Geometry.SmallestEnclosingBall.Naive
-
-                    Algorithms.Geometry.DelaunayTriangulation.Types
-                    Algorithms.Geometry.DelaunayTriangulation.DivideAndConquer
-                    Algorithms.Geometry.DelaunayTriangulation.Naive
-
-                    Algorithms.Geometry.PolyLineSimplification.DouglasPeucker
-
-                    Algorithms.Geometry.EuclideanMST.EuclideanMST
-
-                    Algorithms.Geometry.WellSeparatedPairDecomposition.WSPD
-                    Algorithms.Geometry.WellSeparatedPairDecomposition.Types
-
-                    Algorithms.Geometry.Diameter
-
-                    Algorithms.Geometry.Sweep
-
-                    Algorithms.Geometry.PolygonTriangulation.Types
-                    Algorithms.Geometry.PolygonTriangulation.Triangulate
-                    Algorithms.Geometry.PolygonTriangulation.MakeMonotone
-                    Algorithms.Geometry.PolygonTriangulation.TriangulateMonotone
-
-                    Algorithms.Geometry.LineSegmentIntersection
-                    Algorithms.Geometry.LineSegmentIntersection.Naive
-                    Algorithms.Geometry.LineSegmentIntersection.BentleyOttmann
-                    Algorithms.Geometry.LineSegmentIntersection.Types
-
-                    -- Algorithms.Geometry.HiddenSurfaceRemoval.HiddenSurfaceRemoval
-
-                    Algorithms.Geometry.ClosestPair.Naive
-                    Algorithms.Geometry.ClosestPair.DivideAndConquer
-
-
-                    -- * Graph Algorithms
-                    Algorithms.Graph.DFS
-                    Algorithms.Graph.MST
-
-                    -- * Ipe Types
-                    Data.Geometry.Ipe
-                    Data.Geometry.Ipe.Literal
-                    Data.Geometry.Ipe.Value
-                    Data.Geometry.Ipe.Color
-                    Data.Geometry.Ipe.Attributes
-                    Data.Geometry.Ipe.Types
-                    Data.Geometry.Ipe.Writer
-                    Data.Geometry.Ipe.Reader
-                    Data.Geometry.Ipe.PathParser
-                    Data.Geometry.Ipe.IpeOut
-                    Data.Geometry.Ipe.FromIpe
 
                     -- * General Data Types
                     Data.UnBounded
@@ -210,25 +125,6 @@ library
                     Data.SlowSeq
                     Data.Tree.Util
                     Data.Util
-
-                    -- * Planar Graphs
-                    Data.Permutation
-                    Data.PlanarGraph
-                    Data.PlanarGraph.AdjRep
-                    Data.PlanarGraph.IO
-                    Data.PlanarGraph.Dart
-                    Data.PlanarGraph.Core
-                    Data.PlanarGraph.Dual
-                    Data.PlanarGraph.EdgeOracle
-
-                    Data.PlaneGraph
-                    Data.PlaneGraph.Core
-                    Data.PlaneGraph.Draw
-                    Data.PlaneGraph.AdjRep
-                    Data.PlaneGraph.IO
-
-                    -- * Graphics stuff
-                    Graphics.Camera
 
                     -- * Other
                     System.Random.Shuffle
@@ -394,69 +290,6 @@ executable hgeometry-viewer
                     , FlexibleContexts
                     , MultiParamTypeClasses
 
-
-
-
-executable hgeometry-examples
-  if !flag(examples)
-    buildable: False
-  main-is: Main.hs
-
-  if flag(examples)
-    build-depends: base
-                 , hgeometry
-                 , lens
-                 , containers
-                 , vinyl
-                 , semigroups
-                 , optparse-applicative   >= 0.13.0.0
-                 , text
-                 , hexpat
-                 , bytestring
-                 , directory
-                 , time
-                 , random
-                 , QuickCheck
-
-  hs-source-dirs: examples
-
-  other-modules: Demo.DrawGPX
-                 Demo.WriteEnsemble
-                 Demo.MinDisk
-                 Demo.Delaunay
-                 Demo.ExpectedPairwiseDistance
-                 Demo.TriangulateWorld
-                 Demo.GPXParser
-
-  default-language: Haskell2010
-
-  default-extensions: TypeFamilies
-                    , GADTs
-                    , KindSignatures
-                    , DataKinds
-                    , TypeOperators
-                    , ConstraintKinds
-                    , PolyKinds
-                    , RankNTypes
-
-                    , PatternSynonyms
-                    , ViewPatterns
-
-                    , StandaloneDeriving
-                    , GeneralizedNewtypeDeriving
-                    , DeriveFunctor
-                    , DeriveFoldable
-                    , DeriveTraversable
-
-                    , DeriveDataTypeable
-                    , AutoDeriveTypeable
-
-                    , FlexibleInstances
-                    , FlexibleContexts
-                    , MultiParamTypeClasses
-
-
-
 test-suite doctests
   type:          exitcode-stdio-1.0
   ghc-options:   -threaded
@@ -481,7 +314,6 @@ test-suite hspec
 
   other-modules: Data.RangeSpec
                  Data.EdgeOracleSpec
-                 Data.PlanarGraphSpec
                  Data.PlaneGraphSpec
                  Data.OrdSeqSpec
                  Data.Geometry.Ipe.ReaderSpec
@@ -495,7 +327,6 @@ test-suite hspec
                  Data.Geometry.BoxSpec
                  Data.Geometry.LineSpec
                  Data.Geometry.SubLineSpec
-                 Data.Geometry.PlanarSubdivisionSpec
                  Data.Geometry.TriangleSpec
                  Data.Geometry.ArrangementSpec
 
@@ -566,100 +397,3 @@ test-suite hspec
                     , MultiParamTypeClasses
                     , OverloadedStrings
 
-test-suite bapc_examples
-  type:          exitcode-stdio-1.0
-  ghc-options:   -O2 -fno-warn-unticked-promoted-constructors
-  main-is:       bapc_examples.hs
-  hs-source-dirs: examples
-  build-depends: base
-               , doctest    >= 0.8
-               , array      >= 0.5
-               , hgeometry
-               , lens
-               , data-clist
-               , linear
-               , semigroups
-
-  other-modules: BAPC2012.Gunslinger
-                 BAPC2014.Armybase
-
-  default-language:    Haskell2010
-
-  default-extensions: TypeFamilies
-                    , GADTs
-                    , DataKinds
-                    , TypeOperators
-                    , ConstraintKinds
-                    , PolyKinds
-                    , PatternSynonyms
-                    , ViewPatterns
-
-benchmark benchmarks
-
-  hs-source-dirs: benchmark test examples
-
-  main-is: Benchmarks.hs
-  type: exitcode-stdio-1.0
-
-  other-modules: Benchmark.Util
-                 Algorithms.Geometry.ConvexHull.Bench
-                 Algorithms.Geometry.ConvexHull.GrahamV2
-                 Algorithms.Geometry.ConvexHull.GrahamFam
-                 Algorithms.Geometry.ConvexHull.GrahamFamPeano
-                 Algorithms.Geometry.ConvexHull.GrahamFixed
-                 Data.Geometry.Vector.VectorFamily6
-                 Algorithms.Geometry.ConvexHull.GrahamFam6
-                 Data.Geometry.IntervalTreeBench
-                 Demo.ExpectedPairwiseDistance
-                 Demo.TriangulateWorld
-                 WSPDBench
-                 Algorithms.Geometry.ClosestPair.Bench
-
-  build-depends:
-                base
-              , criterion >= 1.1.4.0
-              , fixed-vector
-              , linear
-              , semigroups
-              , deepseq
-              , deepseq-generics
-              , hgeometry
-              , lens
-              , QuickCheck
-              , bytestring
-              , containers
-              , optparse-applicative
-
-  ghc-options: -Wall -O2 -rtsopts -fno-warn-unticked-promoted-constructors
-
-  default-language:    Haskell2010
-
-  default-extensions: TypeFamilies
-                    , GADTs
-                    , KindSignatures
-                    , DataKinds
-                    , TypeOperators
-                    , ConstraintKinds
-                    , PolyKinds
-                    , RankNTypes
-                    , TypeApplications
-                    , ScopedTypeVariables
-
-                    , PatternSynonyms
-                    , ViewPatterns
-                    , LambdaCase
-                    , TupleSections
-
-
-                    , StandaloneDeriving
-                    , GeneralizedNewtypeDeriving
-                    , DeriveFunctor
-                    , DeriveFoldable
-                    , DeriveTraversable
-
-                    , AutoDeriveTypeable
-
-                    , FlexibleInstances
-                    , FlexibleContexts
-                    , MultiParamTypeClasses
-                    , OverloadedStrings

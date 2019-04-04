@@ -18,8 +18,6 @@ import           Data.BinaryTree
 import           Data.Ext
 import           Data.Geometry hiding (vector)
 import           Data.Geometry.Box
-import           Data.PlanarGraph
-import qualified Data.PlanarGraph as PlanarGraph
 import           Data.Geometry.SubLine
 import           Data.OrdSeq (OrdSeq, fromListByOrd)
 import           Data.Proxy
