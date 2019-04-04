@@ -19,7 +19,6 @@ import           Data.Geometry.Boundary
 import           Data.Geometry.Box
 import           Data.Geometry.Line
 import           Data.Geometry.LineSegment
-import           Data.Geometry.PlanarSubdivision
 import           Data.Geometry.Point
 import           Data.Geometry.Properties
 import qualified Data.List as List

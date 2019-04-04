@@ -126,18 +126,7 @@ library
                     Data.Tree.Util
                     Data.Util
 
-                    -- * Other
-                    System.Random.Shuffle
-                    Control.Monad.State.Persistent
-                    Data.Yaml.Util
-
-
-
   other-modules:
-                   Data.Geometry.Ipe.ParserPrimitives
-
-
-
 
   -- other-extensions:
   build-depends:
@@ -316,7 +305,6 @@ test-suite hspec
                  Data.EdgeOracleSpec
                  Data.PlaneGraphSpec
                  Data.OrdSeqSpec
-                 Data.Geometry.Ipe.ReaderSpec
                  Data.Geometry.PolygonSpec
                  Data.Geometry.LineSegmentSpec
                  Data.Geometry.PointSpec

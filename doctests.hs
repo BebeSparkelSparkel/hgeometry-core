@@ -48,7 +48,6 @@ replace a b = go
 modules =
   [ "Data.Range"
   , "Data.CircularList.Util"
-  , "Data.Permutation"
   , "Data.CircularSeq"
   , "Data.LSeq"
   , "Data.PlanarGraph"
