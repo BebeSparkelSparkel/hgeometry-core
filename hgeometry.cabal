@@ -22,29 +22,12 @@ tested-with:         GHC >= 8.2
 category:            Geometry
 build-type:          Simple
 
-data-files:          resources/basic.isy
-                     test/Algorithms/Geometry/LineSegmentIntersection/manual.ipe
-                     test/Algorithms/Geometry/LineSegmentIntersection/selfIntersections.ipe
-                     test/Algorithms/Geometry/LowerEnvelope/manual.ipe
-                     test/Algorithms/Geometry/PolygonTriangulation/monotone.ipe
-                     test/Algorithms/Geometry/PolygonTriangulation/simplepolygon6.ipe
-                     test/Algorithms/Geometry/SmallestEnclosingDisk/manual.ipe
-                     test/Data/Geometry/pointInPolygon.ipe
-                     test/Data/Geometry/pointInTriangle.ipe
-                     test/Data/Geometry/Polygon/Convex/convexTests.ipe
-                     test/Data/Geometry/arrangement.ipe
-                     test/Data/Geometry/arrangement.ipe.out.ipe
-                     test/Data/PlanarGraph/myGraph.yaml
-                     test/Data/PlaneGraph/myPlaneGraph.yaml
-                     test/Data/PlaneGraph/small.yaml
-                     test/Data/PlaneGraph/testsegs.png
+data-files:
 
 extra-source-files:  README.md
                      changelog.md
 
-Extra-doc-files:     docs/Data/PlanarGraph/testG.png
-                     docs/Data/PlaneGraph/planegraph.png
-                     -- docs/**/*.png
+Extra-doc-files:
 
 cabal-version:       2.0
 source-repository head
@@ -55,11 +38,6 @@ flag with-quickcheck
   description: Include QuickCheck instances
   default:     True
   manual:      False
-
-flag interactive
-  description: Build  interactive parts
-  default:     False
-  manual:      True
 
 library
   ghc-options: -O2 -Wall -fno-warn-unticked-promoted-constructors -fno-warn-type-defaults
@@ -105,10 +83,6 @@ library
 
                     Data.Geometry.KDTree
 
-                    Data.Geometry.Arrangement
-                    Data.Geometry.Arrangement.Internal
-                    Data.Geometry.Arrangement.Draw
-
                     -- * General Data Types
                     Data.UnBounded
                     Data.Range
@@ -132,45 +106,23 @@ library
   build-depends:
                 base             >= 4.10      &&     < 5
               , bifunctors       >= 4.1
-              , bytestring       >= 0.10
               , containers       >= 0.5.5
-              , dlist            >= 0.7
-              , contravariant    >= 1.4
-              , profunctors      >= 5.2.1
               , lens             >= 4.2
               , linear           >= 1.10
               , semigroupoids    >= 5
               , semigroups       >= 0.18
-              , singletons       >= 2.0
-              , text             >= 1.1.1.0
               , vinyl            >= 0.10
               , deepseq          >= 1.1
               , fingertree       >= 0.1
-              , colour           >= 2.3.3
-              , reflection       >= 2.1
-
-
-              -- , validation       >= 0.4
-
-              , parsec           >= 3
-                -- , tranformers      > 0.3
-
               , vector           >= 0.11
+
               , fixed-vector     >= 1.0
               , data-clist       >= 0.0.7.2
 
-              , hexpat           >= 0.20.9
               , aeson            >= 1.0
-              , yaml             >= 0.8
-
-
-              , mtl
-              , random
-              , template-haskell
 
   if flag(with-quickcheck)
     build-depends: QuickCheck              >= 2.5
-                 , quickcheck-instances    >= 0.3
     exposed-modules: Test.QuickCheck.HGeometryInstances
 
 
@@ -208,84 +160,12 @@ library
                     , FlexibleContexts
                     , MultiParamTypeClasses
 
-executable hgeometry-viewer
-  if !flag(interactive)
-    buildable: False
-  main-is: Viewer.hs
-
-  if flag(interactive)
-    build-depends: base
-                 , hgeometry
-                 , lens
-                 , containers
-                 , vinyl
-                 , semigroups
-                 , optparse-applicative   >= 0.13.0.0
-                 , text
-                 , hexpat
-                 , bytestring
-                 , directory
-                 , time
-                 , random
-                 , vector
-                 , colour
-                 , cairo-canvas           >= 0.1.0.0
-                 -- , sdl2                   >= 2.2.0
-                 , gi-gtk                 >= 3.0.15
-                 , reactive-banana-gi-gtk >= 0.2.0.0
-                 , cairo                  >= 0.13.3.1
-                 -- , gi-glib
-                 , gi-cairo
-                 , gi-gdk
-                 -- , gi-gdkpixbuf
-                 , gi-gtk
-                 , transformers
-                 , linear
-                 , haskell-gi-base
-                 , reactive-banana        >= 1.1.0.1
-
-
-
-  hs-source-dirs: interactive
-
-  other-modules: RenderCanvas
-                 RenderUtil
-                 -- ConvexHull
-
-  default-language: Haskell2010
-
-  default-extensions: TypeFamilies
-                    , GADTs
-                    , KindSignatures
-                    , DataKinds
-                    , TypeOperators
-                    , ConstraintKinds
-                    , PolyKinds
-                    , RankNTypes
-
-                    , PatternSynonyms
-                    , ViewPatterns
-
-                    , StandaloneDeriving
-                    , GeneralizedNewtypeDeriving
-                    , DeriveFunctor
-                    , DeriveFoldable
-                    , DeriveTraversable
-
-                    , DeriveDataTypeable
-                    , AutoDeriveTypeable
-
-                    , FlexibleInstances
-                    , FlexibleContexts
-                    , MultiParamTypeClasses
-
 test-suite doctests
   type:          exitcode-stdio-1.0
   ghc-options:   -threaded
   main-is:       doctests.hs
   build-depends: base
                , doctest             >= 0.8
---               , doctest-discover
 
   default-language:    Haskell2010
 
@@ -300,10 +180,7 @@ test-suite hspec
 
   build-tool-depends: hspec-discover:hspec-discover
 
-
   other-modules: Data.RangeSpec
-                 Data.EdgeOracleSpec
-                 Data.PlaneGraphSpec
                  Data.OrdSeqSpec
                  Data.Geometry.PolygonSpec
                  Data.Geometry.LineSegmentSpec
@@ -316,27 +193,13 @@ test-suite hspec
                  Data.Geometry.LineSpec
                  Data.Geometry.SubLineSpec
                  Data.Geometry.TriangleSpec
-                 Data.Geometry.ArrangementSpec
-
-                 Algorithms.Geometry.SmallestEnclosingDisk.RISpec
-                 Algorithms.Geometry.DelaunayTriangulation.DTSpec
-                 Algorithms.Geometry.WellSeparatedPairDecomposition.WSPDSpec
-                 Algorithms.Geometry.LineSegmentIntersection.BentleyOttmannSpec
-                 Algorithms.Geometry.PolygonTriangulation.MakeMonotoneSpec
-                 Algorithms.Geometry.PolygonTriangulation.TriangulateMonotoneSpec
-                 Algorithms.Geometry.LowerEnvelope.LowerEnvSpec
-                 Algorithms.Geometry.ConvexHull.ConvexHullSpec
-                 -- Algorithms.Geometry.HiddenSurfaceRemoval.HiddenSurfaceRemovalSpec
-                 Algorithms.Geometry.ClosestPair.ClosestPairSpec
 
                  Util
-
 
   build-depends:        base
                       , hspec                >= 2.1
                       , QuickCheck           >= 2.5
                       , quickcheck-instances    >= 0.3
-                      , approximate-equality >= 1.1.0.2
                       , hgeometry
                       , lens
                       , data-clist
@@ -344,15 +207,9 @@ test-suite hspec
                       , bytestring
                       , vinyl
                       , semigroups
-                      , vector
                       , containers
-                      , random
-                      , singletons
-                      , colour
                       , filepath
                       , directory
-                      , yaml
-
 
   default-extensions: TypeFamilies
                     , GADTs

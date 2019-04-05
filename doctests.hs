@@ -50,10 +50,6 @@ modules =
   , "Data.CircularList.Util"
   , "Data.CircularSeq"
   , "Data.LSeq"
-  , "Data.PlanarGraph"
-  , "Data.PlanarGraph.Dart"
-  , "Data.PlanarGraph.Core"
-  , "Data.PlaneGraph.IO"
   , "Data.Tree.Util"
 
   , "Data.Geometry.Point"
@@ -68,8 +64,4 @@ modules =
   , "Data.Geometry.Ball"
   , "Data.Geometry.Box"
 
-  , "Data.Geometry.Ipe.IpeOut"
-  , "Data.Geometry.Ipe.FromIpe"
-
-  -- , "Algorithms.Geometry.HiddenSurfaceRemoval.HiddenSurfaceRemoval"
   ]
